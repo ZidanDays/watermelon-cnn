@@ -13,7 +13,14 @@ def load_model():
         st.error(f"Model file {model_path} does not exist. Please check the path.")
         return None
     st.write(f"Model file found: {model_path}")
-    return tf.keras.models.load_model(model_path)
+    try:
+        model = tf.keras.models.load_model(model_path)
+        st.write("Model loaded successfully")
+        return model
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
+        st.stop()  # Stop the app if model cannot be loaded
+        return None
 
 # Load the model
 model = load_model()
@@ -40,10 +47,12 @@ if uploaded_file is not None:
     img_array = img_array / 255.0  # Normalize the image data
 
     # Make prediction
-    prediction = model.predict(img_array)
-    predicted_class_index = np.argmax(prediction)
-    class_list = ['Anthracnose', 'Downy_Mildew', 'Healthy', 'Mosaic_Virus']
-    predicted_class = class_list[predicted_class_index]
-
-    # Display the predicted class
-    st.write(f"Predicted class: {predicted_class}")
+    try:
+        prediction = model.predict(img_array)
+        predicted_class_index = np.argmax(prediction)
+        class_list = ['Anthracnose', 'Downy_Mildew', 'Healthy', 'Mosaic_Virus']
+        predicted_class = class_list[predicted_class_index]
+        # Display the predicted class
+        st.write(f"Predicted class: {predicted_class}")
+    except Exception as e:
+        st.error(f"Error during prediction: {e}")
