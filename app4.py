@@ -3,9 +3,13 @@ import numpy as np
 from PIL import Image
 import tensorflow as tf
 
+# Load trained model (load only once)
+@st.cache(allow_output_mutation=True)
+def load_model():
+    # Load the model from SavedModel format
+    return tf.keras.models.load_model('saved_model/leaf_disease_classifier2')
 
-# Load trained model
-model = tf.keras.models.load_model('leaf_disease_classifier2.h5')
+model = load_model()
 
 # Streamlit App
 st.title("Sistem Pendeteksi Penyakit Tanaman Semangka")
@@ -34,4 +38,3 @@ if uploaded_file is not None:
 
     # Display the predicted class
     st.write(f"Predicted class: {predicted_class}")
-
