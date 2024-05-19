@@ -6,8 +6,7 @@ import os
 
 # Helper function to load model and cache it
 @st.cache_data
-def load_model():
-    model_path = 'leaf_disease_classifier2.h5'
+def load_model(model_path):
     st.write(f"Checking if model file exists: {model_path}")
     if not os.path.exists(model_path):
         st.error(f"Model file {model_path} does not exist. Please check the path.")
@@ -23,13 +22,16 @@ def load_model():
         st.stop()  # Stop the app if model cannot be loaded
         return None
 
-# Load the model
-model = load_model()
-if model is None:
-    st.stop()  # Stop execution if model could not be loaded
-
 # Streamlit App
 st.title("Sistem Pendeteksi Penyakit Tanaman Semangka")
+
+# Path to the model file
+model_path = 'leaf_disease_classifier2.h5'
+
+# Load the model
+model = load_model(model_path)
+if model is None:
+    st.stop()  # Stop execution if model could not be loaded
 
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
