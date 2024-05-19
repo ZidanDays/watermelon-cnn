@@ -2,14 +2,21 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 import tensorflow as tf
+import os
 
-# Load trained model (load only once)
-@st.cache(allow_output_mutation=True)
+# Helper function to load model and cache it
+@st.cache_resource
 def load_model():
-    # Load the model from SavedModel format
-    return tf.keras.models.load_model('saved_model/leaf_disease_classifier2')
+    model_path = 'saved_model/leaf_disease_classifier2'
+    if not os.path.exists(model_path):
+        st.error(f"Model path {model_path} does not exist. Please check the path.")
+        return None
+    return tf.keras.models.load_model(model_path)
 
+# Load the model
 model = load_model()
+if model is None:
+    st.stop()  # Stop execution if model could not be loaded
 
 # Streamlit App
 st.title("Sistem Pendeteksi Penyakit Tanaman Semangka")
