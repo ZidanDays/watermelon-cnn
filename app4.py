@@ -13,8 +13,8 @@ def load_model(model_path):
         return None
     st.write(f"Model file found: {model_path}")
     try:
-        # Load model using tf.keras.models.load_model
-        model = tf.keras.models.load_model(model_path)
+        # Load model using tf.keras.models.load_model with custom_objects argument
+        model = tf.keras.models.load_model(model_path, custom_objects={'InputLayer': tf.keras.layers.InputLayer})
         st.write("Model loaded successfully")
         return model
     except Exception as e:
