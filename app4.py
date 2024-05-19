@@ -26,7 +26,7 @@ def load_model(model_path):
 st.title("Sistem Pendeteksi Penyakit Tanaman Semangka")
 
 # Path to the model file
-model_path = './leaf_disease_classifier2.h5'
+model_path = 'leaf_disease_classifier2.h5'
 
 # Load the model
 model = load_model(model_path)
