@@ -7,10 +7,12 @@ import os
 # Helper function to load model and cache it
 @st.cache_resource
 def load_model():
-    model_path = 'saved_model/leaf_disease_classifier2'
+    model_path = 'leaf_disease_classifier2.h5'
+    st.write(f"Checking if model file exists: {model_path}")
     if not os.path.exists(model_path):
-        st.error(f"Model path {model_path} does not exist. Please check the path.")
+        st.error(f"Model file {model_path} does not exist. Please check the path.")
         return None
+    st.write(f"Model file found: {model_path}")
     return tf.keras.models.load_model(model_path)
 
 # Load the model
