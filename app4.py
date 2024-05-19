@@ -13,8 +13,8 @@ def load_model(model_path):
         return None
     st.write(f"Model file found: {model_path}")
     try:
-        # Load the model using tf.saved_model.load
-        model = tf.saved_model.load(model_path)
+        # Load model using tf.keras.models.load_model
+        model = tf.keras.models.load_model(model_path)
         st.write("Model loaded successfully")
         return model
     except Exception as e:
@@ -26,7 +26,7 @@ def load_model(model_path):
 st.title("Sistem Pendeteksi Penyakit Tanaman Semangka")
 
 # Path to the model file
-model_path = 'leaf_disease_classifier2.h5'
+model_path = './leaf_disease_classifier2.h5'
 
 # Load the model
 model = load_model(model_path)
