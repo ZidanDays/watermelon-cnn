@@ -14,7 +14,7 @@ def load_model(model_path):
     st.write(f"Model file found: {model_path}")
     try:
         # Load model with custom objects if needed
-        model = tf.keras.models.load_model(model_path, custom_objects={'batch_shape': None})
+        model = tf.keras.models.load_model(model_path)
         st.write("Model loaded successfully")
         return model
     except Exception as e:
