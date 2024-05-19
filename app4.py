@@ -5,7 +5,7 @@ import tensorflow as tf
 import os
 
 # Helper function to load model and cache it
-@st.cache
+@st.cache_data
 def load_model():
     model_path = 'leaf_disease_classifier2.h5'
     st.write(f"Checking if model file exists: {model_path}")
