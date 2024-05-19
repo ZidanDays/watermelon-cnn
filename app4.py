@@ -13,8 +13,8 @@ def load_model(model_path):
         return None
     st.write(f"Model file found: {model_path}")
     try:
-        # Load model with custom objects if needed
-        model = tf.keras.models.load_model(model_path)
+        # Load the model using tf.saved_model.load
+        model = tf.saved_model.load(model_path)
         st.write("Model loaded successfully")
         return model
     except Exception as e:
@@ -51,7 +51,11 @@ if uploaded_file is not None:
 
     # Make prediction
     try:
-        prediction = model.predict(img_array)
+        # Convert input to tensor
+        input_tensor = tf.convert_to_tensor(img_array, dtype=tf.float32)
+        # Perform prediction
+        prediction = model(input_tensor)
+        # Get predicted class index
         predicted_class_index = np.argmax(prediction)
         class_list = ['Anthracnose', 'Downy_Mildew', 'Healthy', 'Mosaic_Virus']
         predicted_class = class_list[predicted_class_index]
