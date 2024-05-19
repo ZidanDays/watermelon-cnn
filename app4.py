@@ -5,7 +5,7 @@ import tensorflow as tf
 import os
 
 # Helper function to load model and cache it
-@st.cache_resource
+@st.cache
 def load_model():
     model_path = 'leaf_disease_classifier2.h5'
     st.write(f"Checking if model file exists: {model_path}")
@@ -14,6 +14,7 @@ def load_model():
         return None
     st.write(f"Model file found: {model_path}")
     try:
+        # Load model with custom objects if needed
         model = tf.keras.models.load_model(model_path)
         st.write("Model loaded successfully")
         return model
